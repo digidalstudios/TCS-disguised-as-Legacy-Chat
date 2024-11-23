@@ -1,1 +1,1 @@
-print("Hello from Rojo! test")
+require(game.ReplicatedStorage.Hello)

@@ -17,8 +17,24 @@
     "StarterPlayer": {
       "$ignoreUnknownInstances": true,
       "StarterPlayerScripts": {
+        "LegacyChatService": {
+          "$ignoreUnknownInstances": true,
+          "$path": "src/StarterPlayerScripts"
+        }
+      }
+    },
+    "TextChatService": {
+      "$ignoreUnknownInstances": true,
+      "LegacyChatService": {
         "$ignoreUnknownInstances": true,
-        "$path": "src/StarterPlayerScripts"
+        "$path": "src/TextChatService"
+      }
+    },
+    "StarterGui": {
+      "$ignoreUnknownInstances": true,
+      "Chat": {
+        "$ignoreUnknownInstances": true,
+        "$path": "src/Chat.rbxmx"
       }
     }
   }

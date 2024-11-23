@@ -4,9 +4,3 @@
 # Roblox Studio lock files
 /*.rbxlx.lock
 /*.rbxl.lock
-
-# Selene
-/selene.toml
-
-#Aftman
-/aftman.toml

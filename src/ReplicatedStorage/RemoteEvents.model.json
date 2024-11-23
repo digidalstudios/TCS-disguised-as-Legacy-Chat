@@ -1,0 +1,13 @@
+{
+    "ClassName": "Folder",
+    "Children": [
+      {
+        "Name": "ManageChannels",
+        "ClassName": "RemoteEvent"
+      },
+      {
+        "Name": "SystemMessages",
+        "ClassName": "RemoteEvent"
+      }
+    ]
+  }

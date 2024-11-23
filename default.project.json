@@ -1,25 +1,24 @@
 {
-  "name": "TCS-disguised-as-Legacy-Chat",
+  "name": "RBLXfile",
   "tree": {
     "$className": "DataModel",
-
     "ReplicatedStorage": {
-      "Shared": {
+      "$ignoreUnknownInstances": true,
+      "LegacyChatService": {
         "$path": "src/ReplicatedStorage"
       }
     },
-
     "ServerScriptService": {
-      "Server": {
+      "$ignoreUnknownInstances": true,
+      "LegacyChatService": {
         "$path": "src/ServerScriptService"
       }
     },
-
     "StarterPlayer": {
+      "$ignoreUnknownInstances": true,
       "StarterPlayerScripts": {
-        "Client": {
-          "$path": "src/StarterPlayerScripts"
-        }
+        "$ignoreUnknownInstances": true,
+        "$path": "src/StarterPlayerScripts"
       }
     }
   }

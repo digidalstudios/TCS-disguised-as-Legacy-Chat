@@ -1,0 +1,13 @@
+{
+    "ClassName": "Folder",
+    "Children": [
+      {
+        "Name": "BlockCommands",
+        "ClassName": "RemoteFunction"
+      },
+      {
+        "Name": "GetWhisperChannel",
+        "ClassName": "RemoteFunction"
+      }
+    ]
+  }

@@ -1,0 +1,29 @@
+{
+    "name": "RBLXfile",
+    "tree": {
+      "$className": "DataModel",
+      "ReplicatedStorage": {
+        "$ignoreUnknownInstances": true,
+        "$path": "src/ReplicatedStorage"
+      },
+      "ServerScriptService": {
+        "$ignoreUnknownInstances": true,
+        "$path": "src/ServerScriptService"
+      },
+      "StarterPlayer": {
+        "$ignoreUnknownInstances": true,
+        "StarterPlayerScripts": {
+            "$ignoreUnknownInstances": true,
+            "$path": "src/StarterPlayer/StarterPlayerScripts"
+        }
+      },
+      "TextChatService": {
+        "$ignoreUnknownInstances": true,
+        "$path": "src/TextChatService"
+      },
+      "StarterGui": {
+        "$ignoreUnknownInstances": true,
+        "$path": "src/StarterGui"
+      }
+    }
+  }

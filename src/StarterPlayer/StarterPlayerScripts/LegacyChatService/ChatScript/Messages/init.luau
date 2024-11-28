@@ -1,4 +1,6 @@
 local TCS = game:GetService("TextChatService")
+local ChatSettings = require(game:GetService("TextChatService").LegacyChatService.ChatSettings)
+local ChatConstants = require(game:GetService("TextChatService").LegacyChatService.ChatConstants)
 
 local module = {}
 
@@ -6,8 +8,6 @@ function module.run(Chat, plr)
 	if not game:GetService("Chat"):CanUserChatAsync(plr.UserId) then return end
 	
 	local Frame = Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay
-
-	local ChatSettings = require(game:GetService("TextChatService").LegacyChatService.ChatSettings)
 
 	Frame.Parent.BackgroundColor3 = ChatSettings.BackGroundColor
 
@@ -143,7 +143,7 @@ function module.run(Chat, plr)
 			if player ~= plr then -- i need better variable names
 				props.PrefixText = `[From {if useDisplayNames then player.DisplayName else player.Name}] ` .. props.PrefixText
 			else
-				props.PrefixText = `[To {if useDisplayNames then player2.DisplayName else player2.Name}] ` .. props.PrefixText
+				props.PrefixText = `[{tostring(ChatConstants.WhisperChannelPrefix)}{if useDisplayNames then player2.DisplayName else player2.Name}] ` .. props.PrefixText
 			end
 		end
 

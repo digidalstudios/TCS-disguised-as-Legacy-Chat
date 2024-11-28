@@ -8,6 +8,7 @@ script.Parent = game:GetService("ServerScriptService")
 folder:Destroy()
 
 local module = require(script.ChatService)
+local RunService = game:GetService("RunService")
 local TCS = game:GetService("TextChatService")
 
 local blockCommands = game:GetService("ReplicatedStorage").LegacyChatService.RemoteFunctions.BlockCommands
@@ -135,7 +136,7 @@ getWhisper.OnServerInvoke = function(plr1: Player, plr2: Player)
 
 	local whisperChannel: TextChannel = getWhisperChannel(plr1, plr2)
 
-	if not TCS:CanUsersChatAsync(plr1.UserId, plr2.UserId) or #TCS:CanUsersDirectChatAsync(plr1.UserId, {plr2.UserId}) <= 0 then
+	if not RunService:IsStudio() and (not TCS:CanUsersChatAsync(plr1.UserId, plr2.UserId) or #TCS:CanUsersDirectChatAsync(plr1.UserId, {plr2.UserId})) <= 0 then
 		if whisperChannel then
 			whisperChannel:Destroy()
 		end
@@ -147,8 +148,12 @@ getWhisper.OnServerInvoke = function(plr1: Player, plr2: Player)
 		whisperChannel.Name = `{plr1.UserId}|{plr2.UserId}`
 		whisperChannel.Parent = whisperChannels
 		
-		whisperChannel:SetDirectChatRequester(plr1)
-		
+		if not RunService:IsStudio() then
+			whisperChannel:SetDirectChatRequester(plr1)
+		else
+			print("Not doing SetDirectChatRequester in Studio")
+		end
+
 		whisperChannel:AddUserAsync(plr1.UserId)
 		whisperChannel:AddUserAsync(plr2.UserId)
 	end

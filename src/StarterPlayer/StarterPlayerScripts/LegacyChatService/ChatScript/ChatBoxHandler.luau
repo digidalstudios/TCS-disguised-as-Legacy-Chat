@@ -145,7 +145,7 @@ function module.run(Chat, plr)
 			local MessageMode = chatBar.Parent.MessageMode
 			MessageMode.Size = UDim2.new(0, 46, 1, 0)
 			MessageMode.Text = channelText.Value
-			--MessageMode.TextColor3 = plr.TeamColor.Color
+			MessageMode.TextColor3 = Color3.fromRGB(102, 14, 102)
 			MessageMode.Visible = true
 
 			chatBar.Position = UDim2.new(0, MessageMode.AbsoluteSize.X, 0, 0)

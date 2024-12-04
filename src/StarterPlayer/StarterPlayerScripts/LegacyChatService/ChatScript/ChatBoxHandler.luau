@@ -258,7 +258,7 @@ function module.run(Chat, plr)
 
 					chatBar.Text = " "
 
-					if found.Parent == TCS.LegacyChatService.TeamChannels then
+					if found.Parent == TCS.LegacyChatService.Channels.TeamChannels then
 						channelText.Value = "[Team]"
 					else
 						channelText.Value = `[{found.Name}]`

@@ -143,3 +143,25 @@ for i,v in pairs(script:GetChildren()) do
 
 	require(v).run(Chat, plr)
 end
+
+local function offsetToScale(offset: UDim2): UDim2
+	local viewportSize = workspace.CurrentCamera.ViewportSize
+	return UDim2.fromScale(
+		offset.X.Offset / viewportSize.X,
+		offset.Y.Offset / viewportSize.Y
+	)
+end
+
+connections:Connect("SetCore", "ChatWindowSize", function(size: UDim2)
+	size = offsetToScale(size)
+	
+	local newSize = UDim2.fromScale(
+		math.clamp(size.X.Scale, ChatSettings.MinimumWindowSize.X.Scale, ChatSettings.MaximumWindowSize.X.Scale),
+		math.clamp(size.Y.Scale, ChatSettings.MinimumWindowSize.Y.Scale, ChatSettings.MaximumWindowSize.Y.Scale)
+	)
+	
+	Chat.Frame.Size = newSize
+end)
+connections:Connect("SetCore", "ChatWindowPosition", function(position: UDim2)
+	Chat.Frame.Position = position
+end)

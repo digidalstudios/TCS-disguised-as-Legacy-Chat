@@ -623,11 +623,7 @@ end
 
 function this:OnPlayerChatMessage(sourcePlayer, message, targetPlayer)
 	
-	print("works")
-
 	if not this:BubbleChatEnabled() then return end
-	
-	print("works 2")
 
 	local localPlayer = PlayersService.LocalPlayer
 	local fromOthers = localPlayer ~= nil and sourcePlayer ~= localPlayer

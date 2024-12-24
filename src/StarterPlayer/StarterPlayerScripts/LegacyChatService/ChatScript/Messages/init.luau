@@ -1,6 +1,8 @@
 local TCS = game:GetService("TextChatService")
 local ChatSettings = require(game:GetService("TextChatService").LegacyChatService.ChatSettings)
 local ChatConstants = require(game:GetService("TextChatService").LegacyChatService.ChatConstants)
+local Settings = TCS.LegacyChatService.Settings
+local OldBubbleChat = require(script.OldBubbleChat)
 
 local module = {}
 
@@ -248,6 +250,10 @@ function module.run(Chat, plr)
 					clone:Destroy()
 				end
 			end	
+		end
+		
+		if Settings.OldBubbleChat.Value == true and msg.TextSource and msg.TextSource.UserId then
+			OldBubbleChat:OnPlayerChatMessage(game:GetService("Players")[msg.TextSource.Name], msg.Text, plr)
 		end
 
 		newUi.TextLabel.TextButton.MouseButton1Click:Connect(function()

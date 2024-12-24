@@ -2,8 +2,9 @@ local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character or plr.CharacterAdded:Wait()
 
 local canChat = game:GetService("Chat"):CanUserChatAsync(plr.UserId)
+local TCS = game:GetService("TextChatService")
 
-if not canChat or game:GetService("TextChatService").ChatVersion ~= Enum.ChatVersion.TextChatService then
+if not canChat or TCS.ChatVersion ~= Enum.ChatVersion.TextChatService then
 	warn("ur not on TextChatService lel\nChange it in game.TextChatService.ChatVersion")
 	script:Destroy()
 	return
@@ -21,7 +22,8 @@ until
 	success
 
 local connections = require(game:GetService("ReplicatedStorage").LegacyChatService.Modules.ChatCore)
-local ChatSettings = require(game:GetService("TextChatService").LegacyChatService.ChatSettings)
+local ChatSettings = require(TCS.LegacyChatService.ChatSettings)
+local Settings = TCS.LegacyChatService.Settings
 
 local PHONE_SCREEN_WIDTH = 648
 local TABLET_SCREEN_WIDTH = 1024
@@ -50,6 +52,10 @@ if ChatSettings.ShowChannelsBar then
 	Chat.Frame.ChannelsBarParentFrame.Visible = true
 	Chat.Frame.ChatChannelParentFrame.Size = UDim2.new(1, 0, 1, -80)
 	Chat.Frame.ChatChannelParentFrame.Position = UDim2.new(0, 0, 0, 36)
+end
+
+if Settings.OldBubbleChat.Value == true then
+	TCS.BubbleChatConfiguration.Enabled = false
 end
 
 local chatOpenState = true

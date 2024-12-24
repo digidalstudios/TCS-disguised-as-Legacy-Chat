@@ -622,8 +622,12 @@ function this:CreateChatLineRender(instance, line, onlyCharacter, fifo, shouldAu
 end
 
 function this:OnPlayerChatMessage(sourcePlayer, message, targetPlayer)
+	
+	print("works")
 
 	if not this:BubbleChatEnabled() then return end
+	
+	print("works 2")
 
 	local localPlayer = PlayersService.LocalPlayer
 	local fromOthers = localPlayer ~= nil and sourcePlayer ~= localPlayer
@@ -667,33 +671,34 @@ function this:OnGameChatMessage(origin, message, color)
 end
 
 function this:BubbleChatEnabled()
-	if UserRoactBubbleChatBeta or (UserPreventOldBubbleChatOverlap and ChatService.BubbleChatEnabled) then
-		return false
-	end
-	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
-	if clientChatModules then
-		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
-		if chatSettings then
-			chatSettings = require(chatSettings)
-			if chatSettings.BubbleChatEnabled ~= nil then
-				return chatSettings.BubbleChatEnabled
-			end
-		end
-	end
-	return PlayersService.BubbleChat
+	--if UserRoactBubbleChatBeta or (UserPreventOldBubbleChatOverlap and ChatService.BubbleChatEnabled) then
+	--	return false
+	--end
+	--local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
+	--if clientChatModules then
+	--	local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
+	--	if chatSettings then
+	--		chatSettings = require(chatSettings)
+	--		if chatSettings.BubbleChatEnabled ~= nil then
+	--			return chatSettings.BubbleChatEnabled
+	--		end
+	--	end
+	--end
+	--return PlayersService.BubbleChat
+	return true
 end
 
-function this:ShowOwnFilteredMessage()
-	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
-	if clientChatModules then
-		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
-		if chatSettings then
-			chatSettings = require(chatSettings)
-			return chatSettings.ShowUserOwnFilteredMessage
-		end
-	end
-	return false
-end
+--function this:ShowOwnFilteredMessage()
+--	local clientChatModules = ChatService:FindFirstChild("ClientChatModules")
+--	if clientChatModules then
+--		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
+--		if chatSettings then
+--			chatSettings = require(chatSettings)
+--			return chatSettings.ShowUserOwnFilteredMessage
+--		end
+--	end
+--	return false
+--end
 
 function findPlayer(playerName)
 	for i,v in pairs(PlayersService:GetPlayers()) do
@@ -703,21 +708,21 @@ function findPlayer(playerName)
 	end
 end
 
-ChatService.Chatted:connect(function(origin, message, color) this:OnGameChatMessage(origin, message, color) end)
+--ChatService.Chatted:connect(function(origin, message, color) this:OnGameChatMessage(origin, message, color) end)
 
-local cameraChangedCon = nil
-if game.Workspace.CurrentCamera then
-	cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
-end
+--local cameraChangedCon = nil
+--if game.Workspace.CurrentCamera then
+--	cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
+--end
 
-game.Workspace.Changed:Connect(function(prop)
-	if prop == "CurrentCamera" then
-		if cameraChangedCon then cameraChangedCon:disconnect() end
-		if game.Workspace.CurrentCamera then
-			cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
-		end
-	end
-end)
+--game.Workspace.Changed:Connect(function(prop)
+--	if prop == "CurrentCamera" then
+--		if cameraChangedCon then cameraChangedCon:disconnect() end
+--		if game.Workspace.CurrentCamera then
+--			cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
+--		end
+--	end
+--end)
 
 
 local AllowedMessageTypes = nil
@@ -756,42 +761,44 @@ function checkAllowedMessageType(messageData)
 	return false
 end
 
-local ChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
-local OnMessageDoneFiltering = ChatEvents:WaitForChild("OnMessageDoneFiltering")
-local OnNewMessage = ChatEvents:WaitForChild("OnNewMessage")
+--local ChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
+--local OnMessageDoneFiltering = ChatEvents:WaitForChild("OnMessageDoneFiltering")
+--local OnNewMessage = ChatEvents:WaitForChild("OnNewMessage")
 
-OnNewMessage.OnClientEvent:connect(function(messageData, channelName)
-	if not checkAllowedMessageType(messageData) then
-		return
-	end
+--OnNewMessage.OnClientEvent:connect(function(messageData, channelName)
+--	if not checkAllowedMessageType(messageData) then
+--		return
+--	end
 
-	local sender = findPlayer(messageData.FromSpeaker)
-	if not sender then
-		return
-	end
+--	local sender = findPlayer(messageData.FromSpeaker)
+--	if not sender then
+--		return
+--	end
 
-	if not messageData.IsFiltered or messageData.FromSpeaker == LocalPlayer.Name then
-		if messageData.FromSpeaker ~= LocalPlayer.Name or this:ShowOwnFilteredMessage() then
-			return
-		end
-	end
+--	if not messageData.IsFiltered or messageData.FromSpeaker == LocalPlayer.Name then
+--		if messageData.FromSpeaker ~= LocalPlayer.Name or this:ShowOwnFilteredMessage() then
+--			return
+--		end
+--	end
 
-	this:OnPlayerChatMessage(sender, messageData.Message, nil)
-end)
+--	this:OnPlayerChatMessage(sender, messageData.Message, nil)
+--end)
 
-OnMessageDoneFiltering.OnClientEvent:connect(function(messageData, channelName)
-	if not checkAllowedMessageType(messageData) then
-		return
-	end
+--OnMessageDoneFiltering.OnClientEvent:connect(function(messageData, channelName)
+--	if not checkAllowedMessageType(messageData) then
+--		return
+--	end
 
-	local sender = findPlayer(messageData.FromSpeaker)
-	if not sender then
-		return
-	end
+--	local sender = findPlayer(messageData.FromSpeaker)
+--	if not sender then
+--		return
+--	end
 
-	if messageData.FromSpeaker == LocalPlayer.Name and not this:ShowOwnFilteredMessage() then
-		return
-	end
+--	if messageData.FromSpeaker == LocalPlayer.Name and not this:ShowOwnFilteredMessage() then
+--		return
+--	end
 
-	this:OnPlayerChatMessage(sender, messageData.Message, nil)
-end)
+--	this:OnPlayerChatMessage(sender, messageData.Message, nil)
+--end)
+
+return this

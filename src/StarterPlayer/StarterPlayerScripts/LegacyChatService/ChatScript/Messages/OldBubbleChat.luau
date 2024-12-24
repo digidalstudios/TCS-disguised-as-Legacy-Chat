@@ -706,19 +706,19 @@ end
 
 --ChatService.Chatted:connect(function(origin, message, color) this:OnGameChatMessage(origin, message, color) end)
 
---local cameraChangedCon = nil
---if game.Workspace.CurrentCamera then
---	cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
---end
+local cameraChangedCon = nil
+if game.Workspace.CurrentCamera then
+	cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
+end
 
---game.Workspace.Changed:Connect(function(prop)
---	if prop == "CurrentCamera" then
---		if cameraChangedCon then cameraChangedCon:disconnect() end
---		if game.Workspace.CurrentCamera then
---			cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
---		end
---	end
---end)
+game.Workspace.Changed:Connect(function(prop)
+	if prop == "CurrentCamera" then
+		if cameraChangedCon then cameraChangedCon:disconnect() end
+		if game.Workspace.CurrentCamera then
+			cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
+		end
+	end
+end)
 
 
 local AllowedMessageTypes = nil
